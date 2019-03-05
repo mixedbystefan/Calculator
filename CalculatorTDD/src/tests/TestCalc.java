@@ -18,6 +18,18 @@ public class TestCalc {
 	// minräknarens huvud-metod
 	
 	@Test
+	public void bracket_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "9(3*1)";
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("27.0", actual);	
+	}
+	@Test
 	public void priority_test() 
 	{
 		//Arrange
@@ -28,6 +40,32 @@ public class TestCalc {
 		
 		//Assert
 		assertEquals("21.0", actual);	
+	}
+	
+	@Test
+	public void whiteSpace_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "1 *2 / 2 +2 * 3";
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("7.0", actual);	
+	}
+	
+	@Test
+	public void lotOfDifferentCalculations_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "1 /2/3*4*5*6-7-8+9";
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("14.0", actual);	
 	}
 	
 	@Test
@@ -201,6 +239,8 @@ public class TestCalc {
 		
 		
 	}
+	
+	
 	
 
 }
