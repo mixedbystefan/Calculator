@@ -43,7 +43,7 @@ public class Calculator {
                             && s.charAt(o+1)=='('){                         //or number and bracket,
                         s=s.substring(0,o+1)+"*"+(s.substring(o+1));        //behandlas som multiplikation
                     }                                                      
-                }catch (Exception ignored){}                                //ignore out of range ex
+                }catch (Exception ignored){}                                //ignorera of range ex
                 if(s.charAt(o)==')'){                                  //söker avslutande parantes
                     for(int i=o; i>=0;i--){
                         if(s.charAt(i)=='('){                          //söker öppnande parantes
@@ -79,8 +79,10 @@ public class Calculator {
 		int index = 0;
 		ArrayList<String> upDatedList = new ArrayList<String>();
 	
+		// Ersätter -- med +
+		String twoMinusEqPlus = expression.replace("--", "+");
 		// Delar upp input i en lista
-		String temp[] = expression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
+		String temp[] = twoMinusEqPlus.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
 		
 		
 		

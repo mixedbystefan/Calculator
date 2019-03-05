@@ -29,6 +29,19 @@ public class TestCalc {
 		//Assert
 		assertEquals("27.0", actual);	
 	}
+	
+	@Test
+	public void doubleMinus_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "7*6/2--2";
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("23.0", actual);	
+	}
 	@Test
 	public void priority_test() 
 	{
