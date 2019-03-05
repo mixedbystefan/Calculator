@@ -1,5 +1,6 @@
 package calculator;
 
+import java.awt.List;
 import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,8 @@ import javax.print.attribute.ResolutionSyntax;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class Calculator {
+	StringBuffer sBuffer;
+	
 	
 	// main metod med konsol-gränssnitt
 	public static void main(String[] args) 
@@ -24,6 +27,7 @@ public class Calculator {
 		String output = calculator.calculateExpression(input);
 		System.out.println(output);
 		scanner.close();
+		
 	}
 	
 
@@ -33,12 +37,16 @@ public class Calculator {
 	
 	public String calculateExpression(String expression) {
 	
-        
+		
 		double result = 0.0;
 		double mem = 0.0;
+		double mem_2 = 0.0;
+		int index = 0;
+		ArrayList<String> upDatedList = new ArrayList<String>();
 	
 		// Delar upp input i en lista
 		String temp[] = expression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
+		
 		
 		
 		if (temp.length >1) 
@@ -48,7 +56,8 @@ public class Calculator {
 		for (int i=0; i<temp.length; i++)
 		{ 	
 			
-			
+			if (temp[i].equalsIgnoreCase(("+"))|| temp[i].equalsIgnoreCase(("-")))
+			{mem=0.0;}
 			
 			if (temp[i].equalsIgnoreCase(("*"))|| temp[i].equalsIgnoreCase(("/")))
 			{
@@ -98,9 +107,30 @@ public class Calculator {
 			
 			
 			
+			// temp ska tömmas på tomma index
+			
 			
 			
 		}
+		
+		StringBuffer sBuffer = new StringBuffer();
+	    
+	    
+		for (int i=0; i<temp.length; i++)
+		{
+			if (!temp[i].equalsIgnoreCase("")) 
+			{upDatedList.add(temp[i]);} 
+			
+			sBuffer.append(temp[i]);
+		
+		}
+		String updatedExpression = sBuffer.toString();
+		String _temp[] = updatedExpression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
+		temp = _temp;
+		
+		
+		
+		
 		
 		for (int i=0; i<temp.length; i++)
 		{ 
@@ -113,25 +143,25 @@ public class Calculator {
 			
 			if (temp[i].equalsIgnoreCase(("+"))) 
 			{
-				if (mem==0.0) {
-					result = add(d1, d2); mem=result;
+				if (mem_2==0.0) {
+					result = add(d1, d2); mem_2=result;
 					}
 				else 
 					{
-					result = add(mem, d2); mem=result;
+					result = add(mem_2, d2); mem_2=result;
 					}
 			}
 		
 			if (temp[i].equalsIgnoreCase(("-"))) 
 			{
 				
-				if (mem==0.0) 
+				if (mem_2==0.0) 
 					{
-					result = subtract(d1, d2); mem=result;
+					result = subtract(d1, d2); mem_2=result;
 					}
 				else 
 				{
-					result = subtract(mem, d2); mem=result;
+					result = subtract(mem_2, d2); mem_2=result;
 				}
 			}
 			

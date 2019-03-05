@@ -27,7 +27,7 @@ public class TestCalc {
 		String actual = calc.calculateExpression(input);
 		
 		//Assert
-		assertEquals("11", actual);	
+		assertEquals("21.0", actual);	
 	}
 	
 	@Test
@@ -40,7 +40,7 @@ public class TestCalc {
 		String actual = calc.calculateExpression(input);
 		
 		//Assert
-		assertEquals("21", actual);	
+		assertEquals("21.0", actual);	
 	}
 	
 	@Test
