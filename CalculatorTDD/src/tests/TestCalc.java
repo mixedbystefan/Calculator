@@ -16,8 +16,71 @@ public class TestCalc {
 	
 	
 	// minräknarens huvud-metod
+	@Test
+	public void minusFirstOrLast_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "-2+2/2*2*1+1";
+		//Act
+		String actual = calc.checkParanteses(input);
+		
+		//Assert
+		assertEquals("1.0", actual);	
+	}
 	
 	@Test
+	public void minusFirstOrLast_test2() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "-4+5";
+		//Act
+		String actual = calc.checkParanteses(input);
+		
+		//Assert
+		assertEquals("1.0", actual);	
+	}
+	@Test
+	public void plusFirstOrLast_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "+2+2/2*2+";
+		//Act
+		String actual = calc.checkParanteses(input);
+		
+		//Assert
+		assertEquals("4.0", actual);	
+	}
+	// Denna funkar inte pga mem2=0
+	
+	@Test
+	public void dennaSkafunkaTabort_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "0-2+2+1";
+		//Act
+		String actual = calc.checkParanteses(input);
+		
+		//Assert
+		assertEquals("1.0", actual);	
+	}
+	
+	@Test
+	public void rootInEquation_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "√4+2/2*2";
+		//Act
+		String actual = calc.checkParanteses(input);
+		
+		//Assert
+		assertEquals("4.0", actual);	
+	}
+	
 	public void bracket_test() 
 	{
 		//Arrange

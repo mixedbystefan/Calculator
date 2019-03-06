@@ -26,7 +26,6 @@ public class Calculator {
 		String input = scanner.nextLine();
 		Calculator calculator = new Calculator();
 		String output = calculator.checkParanteses(input);
-		//String output = calculator.calculateExpression(input);
 		System.out.println(output);
 		scanner.close();
 		
@@ -48,7 +47,7 @@ public class Calculator {
                     for(int i=o; i>=0;i--){
                         if(s.charAt(i)=='('){                          //söker öppnande parantes
                             String in = s.substring(i+1,o);
-                            in = check.calculateExpression(in);
+                            in = check.calculateExpression(in);   // här är s rätt
                             s=s.substring(0,i)+in+s.substring(o+1);
                             i=o=0;
                         }
@@ -81,6 +80,13 @@ public class Calculator {
 	
 		// Ersätter -- med +
 		String twoMinusEqPlus = expression.replace("--", "+");
+		
+		// Om första char är ett minus så läggs en 0 till innan - 0-1..osv
+				if (twoMinusEqPlus.substring(0, 1).equalsIgnoreCase("-")){
+					String updatedInput= "0" + twoMinusEqPlus;
+					twoMinusEqPlus = updatedInput;
+				}
+		
 		// Delar upp input i en lista
 		String temp[] = twoMinusEqPlus.split("(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])");
 		
@@ -92,6 +98,9 @@ public class Calculator {
 			
 		for (int i=0; i<temp.length; i++)
 		{ 	
+			// Tar bort + om detta inleder ekvationen
+			if(temp[0].equalsIgnoreCase("+")) {temp[0]=""; continue;}
+			if(temp[temp.length-1].equalsIgnoreCase("+")) {temp[temp.length-1]="";}
 			
 			if (temp[i].equalsIgnoreCase(("+"))|| temp[i].equalsIgnoreCase(("-")))
 			{mem=0.0;}
@@ -101,14 +110,20 @@ public class Calculator {
 				int d1 = Integer.parseInt(temp[i-1]);
 				int d2 = Integer.parseInt(temp[i+1]);
 				result = modulus(d1, d2);
-			
+				temp[i-1]="";
+				temp[i]=Double.toString(result);
+				mem=0.0;
 			}
+		
 			
 			if (temp[i].equalsIgnoreCase(("√"))) 
 			{ 
 				
 				int d = Integer.parseInt(temp[i+1]);
 				result = root(d);
+				temp[i]="";
+				temp[i+1]=Double.toString(result);
+				mem=0.0;
 			
 			}
 			
@@ -187,11 +202,14 @@ public class Calculator {
 		
 		for (int i=0; i<temp.length; i++)
 		{ 
+			if(temp[0].equalsIgnoreCase("+")) {temp[0]=""; continue;}
+			if(temp[temp.length-1].equalsIgnoreCase("+")) {temp[temp.length-1]="";}
 		
 		if (temp[i].equalsIgnoreCase(("+"))|| temp[i].equalsIgnoreCase(("-")))
 		{
-			
-			double d1 = Double.parseDouble(temp[i-1]);
+			double d1 = 0;
+			if (i==0) {continue;}
+			else {d1 = Double.parseDouble(temp[i-1]);}
 			double d2 = Double.parseDouble(temp[i+1]);
 			
 			if (temp[i].equalsIgnoreCase(("+"))) 
@@ -207,7 +225,11 @@ public class Calculator {
 		
 			if (temp[i].equalsIgnoreCase(("-"))) 
 			{
-				
+				if ((temp[0].equalsIgnoreCase("-")))
+					{
+					
+					
+					}
 				if (mem_2==0.0) 
 					{
 					result = subtract(d1, d2); mem_2=result;
