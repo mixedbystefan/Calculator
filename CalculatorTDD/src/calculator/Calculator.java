@@ -82,7 +82,7 @@ public class Calculator {
 		// Ersätter -- med +
 		String twoMinusEqPlus = expression.replace("--", "+");
 		// Delar upp input i en lista
-		String temp[] = twoMinusEqPlus.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
+		String temp[] = twoMinusEqPlus.split("(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])");
 		
 		
 		
@@ -95,6 +95,22 @@ public class Calculator {
 			
 			if (temp[i].equalsIgnoreCase(("+"))|| temp[i].equalsIgnoreCase(("-")))
 			{mem=0.0;}
+			
+			if (temp[i].equalsIgnoreCase(("%"))) 
+			{ 
+				int d1 = Integer.parseInt(temp[i-1]);
+				int d2 = Integer.parseInt(temp[i+1]);
+				result = modulus(d1, d2);
+			
+			}
+			
+			if (temp[i].equalsIgnoreCase(("√"))) 
+			{ 
+				
+				int d = Integer.parseInt(temp[i+1]);
+				result = root(d);
+			
+			}
 			
 			if (temp[i].equalsIgnoreCase(("*"))|| temp[i].equalsIgnoreCase(("/")))
 			{
@@ -210,46 +226,8 @@ public class Calculator {
 		
 		
 		
-		
-		
-		/*split = expression.split("[-]");
-		if (split.length >1) 
-		{ 
-			double d1=0;
-			for (int i=1; i<split.length; i++)
-			{
-				
-				if (i==1) {d1 = Double.parseDouble(split[i-1]);}
-				double d2 = Double.parseDouble(split[i]);
-				result = subtract(d1, d2);
-				d1 = result;
-			}
-			
-			
-			
-			 
-		}
-		
-		split = expression.split("[+]");
-		if (split.length >1) 
-		{ 
-			
-			for (int i=1; i<split.length; i++)
-			{
-				
-				double d1 = Double.parseDouble(split[i-1]);
-				double d2 = Double.parseDouble(split[i+1]);
-				result = add(d1, d2);
-				
-			}
-			
-			
-			
-			 
-		}*/
-		
 		String out = Double.toString(result);
-		System.out.println("detta är final-strängen ut : " + expression);
+		System.out.println("Detta är output från mainmetod : " + out);
 		return out;
 	
 	}
@@ -275,15 +253,42 @@ public class Calculator {
 	}
 	
 	//divide
-		public double divide(double d1, double d2) 
-		{
-			return d1 / d2;
-		}
+	public double divide(double d1, double d2) 
+	{
+		return d1 / d2;
+	}	
 	
-	// modulus
-	// exponent
-	// logaritm
-	// root
+	// modulus %
+		
+	public int modulus(int d1, int d2) 
+	{
+		return Math.floorMod(d1, d2);
+	}
+		
+	// root √
+		
+	public double root(double d1) 
+	{
+		return Math.sqrt(d1);
+	}
+	// exponent ^
+	
+	public double exponent(double d1, double d2 ) 
+	{
+		return Math.pow(d1, d2);
+	}
+
+	
+	// logarithm log
+	
+	public double logarithm(double d1) 
+	{
+		return Math.log(d1);
+	}
+	
+	//Math.log(60984.1)=11.018368453441132
+	//Math.log(-497.99)=NaN
+		
 
 	
 

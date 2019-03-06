@@ -22,9 +22,9 @@ public class TestCalc {
 	{
 		//Arrange
 		Calculator calc = new Calculator();
-		String input = "9(3*1)";
+		String input = "9(3*1)+3-(4-1)";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("27.0", actual);	
@@ -37,7 +37,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "7*6/2--2";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("23.0", actual);	
@@ -49,7 +49,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "7*6/2";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("21.0", actual);	
@@ -62,7 +62,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "1 *2 / 2 +2 * 3";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("7.0", actual);	
@@ -75,7 +75,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "1 /2/3*4*5*6-7-8+9";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("14.0", actual);	
@@ -88,7 +88,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "5*4+7-3*0+4-10";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("21.0", actual);	
@@ -101,7 +101,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "1+1+1";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("3.0", actual);	
@@ -114,7 +114,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "5+1-2";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("4.0", actual);	
@@ -127,7 +127,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "5*5/5";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("5.0", actual);	
@@ -140,7 +140,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "5*5/2-2";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("10.5", actual);	
@@ -153,7 +153,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		String input = "9-3-1";
 		//Act
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("5.0", actual);	
@@ -166,7 +166,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		// Act
 		String input = "1+2";
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("3.0", actual);
@@ -183,7 +183,7 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		// Act
 		String input = "4/2";
-		String actual = calc.calculateExpression(input);
+		String actual = calc.checkParanteses(input);
 		
 		//Assert
 		assertEquals("2.0", actual);
@@ -252,6 +252,69 @@ public class TestCalc {
 		
 		
 	}
+	
+	@Test
+	public void modulus_test() 
+	{
+	   
+		//Arrange
+		Calculator calc = new Calculator();
+		// Acts
+		double actual = calc.divide(60, 19);
+		
+		//Assert
+		assertEquals(3, actual, 0.16);
+		
+		
+	}
+	
+	@Test
+	public void root_test() 
+	{
+	   
+		//Arrange
+		Calculator calc = new Calculator();
+		// Acts
+		double actual = calc.root(9);
+		
+		//Assert
+		assertEquals(3d, actual, 0.111);
+		
+		
+	}
+	
+	@Test
+	public void exponent_test() 
+	{
+	   
+		//Arrange
+		Calculator calc = new Calculator();
+		// Acts
+		double actual = calc.exponent(10, 2);
+		
+		//Assert
+		assertEquals(100d, actual, 0.111);
+		
+		
+	}
+	
+	@Test
+	public void logarithm_test() 
+	{
+	   
+		//Arrange
+		Calculator calc = new Calculator();
+		// Acts
+		double actual = calc.logarithm(60984.1);
+		
+		//Assert
+		assertEquals(11.018368453441132d, actual, 0.111);
+		
+		
+	}
+	
+	
+	
 	
 	
 	
