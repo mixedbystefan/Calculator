@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class Calculator {
 	StringBuffer sBuffer;
 	Calculator check;
+	boolean memoryInUse=false;
 	
 	
 	// main metod med konsol-gränssnitt
@@ -113,6 +114,7 @@ public class Calculator {
 				temp[i-1]="";
 				temp[i]=Double.toString(result);
 				mem=0.0;
+				
 			}
 		
 			
@@ -214,10 +216,10 @@ public class Calculator {
 			
 			if (temp[i].equalsIgnoreCase(("+"))) 
 			{
-				if (mem_2==0.0) {
-					result = add(d1, d2); mem_2=result;
+				if (mem_2==0.0 && memoryInUse==false) {
+					result = add(d1, d2); mem_2=result; memoryInUse=true;
 					}
-				else 
+				else  
 					{
 					result = add(mem_2, d2); mem_2=result;
 					}
@@ -230,9 +232,9 @@ public class Calculator {
 					
 					
 					}
-				if (mem_2==0.0) 
+				if (mem_2==0.0 && memoryInUse==false) 
 					{
-					result = subtract(d1, d2); mem_2=result;
+					result = subtract(d1, d2); mem_2=result; memoryInUse=true;
 					}
 				else 
 				{

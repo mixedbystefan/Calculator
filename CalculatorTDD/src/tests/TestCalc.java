@@ -21,12 +21,12 @@ public class TestCalc {
 	{
 		//Arrange
 		Calculator calc = new Calculator();
-		String input = "-2+2/2*2*1+1";
+		String input = "-2+2/2*2*1+1*2";
 		//Act
 		String actual = calc.checkParanteses(input);
 		
 		//Assert
-		assertEquals("1.0", actual);	
+		assertEquals("2.0", actual);	
 	}
 	
 	@Test
