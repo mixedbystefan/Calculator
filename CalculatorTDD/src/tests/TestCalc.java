@@ -16,6 +16,20 @@ public class TestCalc {
 	
 	
 	// minräknarens huvud-metod
+	
+	@Test
+	public void allOperators_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "-1+2/(√16-2)*√4--2+10^2"; 
+		//Act
+		String actual = calc.checkParanteses(input);
+		
+		//Assert
+		assertEquals("103.0", actual);	
+	}
+	
 	@Test
 	public void minusFirstOrLast_test() 
 	{

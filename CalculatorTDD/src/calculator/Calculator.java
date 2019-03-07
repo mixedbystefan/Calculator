@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class Calculator {
 	StringBuffer sBuffer;
+	StringBuffer sBuf;
 	Calculator check;
 	boolean memoryInUse=false;
 	
@@ -96,6 +97,62 @@ public class Calculator {
 		if (temp.length >1) 
 		{
 			
+			for (int i=0; i<temp.length; i++)
+			{ 
+			
+				if (temp[i].equalsIgnoreCase(("%"))) 
+				{ 
+					int d1 = Integer.parseInt(temp[i-1]);
+					int d2 = Integer.parseInt(temp[i+1]);
+					result = modulus(d1, d2);
+					temp[i-1]="";
+					temp[i]=Double.toString(result);
+					mem=0.0;
+					
+				}
+			
+				
+				if (temp[i].equalsIgnoreCase(("√"))) 
+				{ 
+					
+					int d = Integer.parseInt(temp[i+1]);
+					result = root(d);
+					temp[i]="";
+					temp[i+1]=Double.toString(result);
+					mem=0.0;
+					
+				
+				}
+				
+				if (temp[i].equalsIgnoreCase(("^"))) 
+				{ 
+					
+					double d1 = Double.parseDouble(temp[i-1]);
+					double d2 = Double.parseDouble(temp[i+1]);
+					result = exponent(d1, d2);
+					temp[i-1]="";
+					temp[i]="";
+					temp[i+1]=Double.toString(result);
+					mem=0.0;
+					
+				
+				}
+				
+			
+			}	
+			
+			sBuf = new StringBuffer();
+			for (int i=0; i<temp.length; i++)
+			{
+				if (!temp[i].equalsIgnoreCase("")) 
+				{upDatedList.add(temp[i]);} 
+				
+				sBuf.append(temp[i]);
+			
+			}
+			String _updatedExpression = sBuf.toString();
+			String _temporary[] = _updatedExpression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
+			temp = _temporary;
 			
 		for (int i=0; i<temp.length; i++)
 		{ 	
@@ -106,28 +163,7 @@ public class Calculator {
 			if (temp[i].equalsIgnoreCase(("+"))|| temp[i].equalsIgnoreCase(("-")))
 			{mem=0.0;}
 			
-			if (temp[i].equalsIgnoreCase(("%"))) 
-			{ 
-				int d1 = Integer.parseInt(temp[i-1]);
-				int d2 = Integer.parseInt(temp[i+1]);
-				result = modulus(d1, d2);
-				temp[i-1]="";
-				temp[i]=Double.toString(result);
-				mem=0.0;
-				
-			}
-		
 			
-			if (temp[i].equalsIgnoreCase(("√"))) 
-			{ 
-				
-				int d = Integer.parseInt(temp[i+1]);
-				result = root(d);
-				temp[i]="";
-				temp[i+1]=Double.toString(result);
-				mem=0.0;
-			
-			}
 			
 			if (temp[i].equalsIgnoreCase(("*"))|| temp[i].equalsIgnoreCase(("/")))
 			{
