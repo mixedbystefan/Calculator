@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import javax.naming.spi.DirStateFactory.Result;
 import javax.print.attribute.ResolutionSyntax;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.xml.transform.Templates;
 
 public class Calculator {
 	StringBuffer sBuffer;
@@ -253,9 +254,7 @@ public class Calculator {
 	    
 		for (int i=0; i<temp.length; i++)
 		{
-			if (!temp[i].equalsIgnoreCase("")) 
-			{upDatedList.add(temp[i]);} 
-			
+						
 			sBuffer.append(temp[i]);
 		
 		}
@@ -321,7 +320,21 @@ public class Calculator {
 	
 	}
 	
-	
+	public String[] refreshList(String[] temp) {
+		StringBuffer sBuffer = new StringBuffer();
+	    
+	    
+		for (int i=0; i<temp.length; i++)
+		{
+						
+			sBuffer.append(temp[i]);
+		
+		}
+		String updatedExpression = sBuffer.toString();
+		String _temp[] = updatedExpression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
+		temp = _temp;
+		return temp;
+	}
 	
 	
 
