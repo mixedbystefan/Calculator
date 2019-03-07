@@ -1,18 +1,7 @@
 package calculator;
 
-import java.awt.List;
-import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.concurrent.CountDownLatch;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.naming.spi.DirStateFactory.Result;
-import javax.print.attribute.ResolutionSyntax;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.xml.transform.Templates;
 
 public class Calculator {
 	StringBuffer sBuffer;
@@ -91,49 +80,41 @@ public class Calculator {
 				}
 		
 		// Delar upp input i en lista
-		String temp[] = twoMinusEqPlus.split("(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])");
+		String inputList[] = twoMinusEqPlus.split("(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])");
 		
 		
 		
-		if (temp.length >1) 
+		if (inputList.length >1) 
 		{
 			
-			for (int i=0; i<temp.length; i++)
+			for (int i=0; i<inputList.length; i++)
 			{ 
 			
-				/*if (temp[i].equalsIgnoreCase(("%"))) 
-				{ 
-					int d1 = Integer.parseInt(temp[i-1]);
-					int d2 = Integer.parseInt(temp[i+1]);
-					result = modulus(d1, d2);
-					temp[i-1]="";
-					temp[i]=Double.toString(result);
-					mem=0.0;
-					
-				}*/
+				
 			
 				
-				if (temp[i].equalsIgnoreCase(("√"))) 
+				if (inputList[i].equalsIgnoreCase(("√"))) 
 				{ 
 					
-					int d = Integer.parseInt(temp[i+1]);
+					int d = Integer.parseInt(inputList[i+1]);
 					result = root(d);
-					temp[i]="";
-					temp[i+1]=Double.toString(result);
+					inputList[i]="";
+					inputList[i+1]=Double.toString(result);
 					mem=0.0;
+					
 					
 				
 				}
 				
-				if (temp[i].equalsIgnoreCase(("^"))) 
+				if (inputList[i].equalsIgnoreCase(("^"))) 
 				{ 
 					
-					double d1 = Double.parseDouble(temp[i-1]);
-					double d2 = Double.parseDouble(temp[i+1]);
+					double d1 = Double.parseDouble(inputList[i-1]);
+					double d2 = Double.parseDouble(inputList[i+1]);
 					result = exponent(d1, d2);
-					temp[i-1]="";
-					temp[i]="";
-					temp[i+1]=Double.toString(result);
+					inputList[i-1]="";
+					inputList[i]="";
+					inputList[i+1]=Double.toString(result);
 					mem=0.0;
 					
 				
@@ -142,76 +123,77 @@ public class Calculator {
 			
 			}	
 			
-			sBuf = new StringBuffer();
-			for (int i=0; i<temp.length; i++)
+			/*sBuf = new StringBuffer();
+			for (int i=0; i<inputList.length; i++)
 			{
-				if (!temp[i].equalsIgnoreCase("")) 
-				{upDatedList.add(temp[i]);} 
 				
-				sBuf.append(temp[i]);
+				
+				sBuf.append(inputList[i]);
 			
 			}
 			String _updatedExpression = sBuf.toString();
 			String _temporary[] = _updatedExpression.split("(?<=[\\(\\)\\+\\-*%\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%\\/\\^A-Za-z])");
-			temp = _temporary;
+			inputList = _temporary;*/
 			
-		for (int i=0; i<temp.length; i++)
+			inputList = updateList(inputList);
+			
+		for (int i=0; i<inputList.length; i++)
 		{ 	
 			// Tar bort + om detta inleder ekvationen
-			if(temp[0].equalsIgnoreCase("+")) {temp[0]=""; continue;}
-			if(temp[temp.length-1].equalsIgnoreCase("+")) {temp[temp.length-1]="";}
+			if(inputList[0].equalsIgnoreCase("+")) {inputList[0]=""; continue;}
+			if(inputList[inputList.length-1].equalsIgnoreCase("+")) {inputList[inputList.length-1]="";}
 			
-			if (temp[i].equalsIgnoreCase(("+"))|| temp[i].equalsIgnoreCase(("-")))
+			if (inputList[i].equalsIgnoreCase(("+"))|| inputList[i].equalsIgnoreCase(("-")))
 			{mem=0.0;}
 			
 			
 			
-			if (temp[i].equalsIgnoreCase(("*"))|| temp[i].equalsIgnoreCase(("/"))|| temp[i].equalsIgnoreCase(("%")))
+			if (inputList[i].equalsIgnoreCase(("*"))|| inputList[i].equalsIgnoreCase(("/"))|| inputList[i].equalsIgnoreCase(("%")))
 			{
 				
-				double d1 = Double.parseDouble(temp[i-1]);
+				double d1 = Double.parseDouble(inputList[i-1]);
 				//int _d1 = Integer.parseInt(temp[i-1]);
-				double d2 = Double.parseDouble(temp[i+1]);
+				double d2 = Double.parseDouble(inputList[i+1]);
 				//int _d2 = Integer.parseInt(temp[i+1]);
-				if (temp[i].equalsIgnoreCase(("*"))) 
+				if (inputList[i].equalsIgnoreCase(("*"))) 
 				{
 					if (mem==0.0) 
 						{
 						result = multiply(d1, d2); mem=result;
-						temp[i-1]="";
-						temp[i]="";
-						temp[i+1]=Double.toString(result);
+						inputList[i-1]="";
+						inputList[i]="";
+						inputList[i+1]=Double.toString(result);
 						
 						
 						}
 					else 
 						{
 						result = multiply(mem, d2); mem=result;
-						temp[i-1]="";
-						temp[i]="";
-						temp[i+1]=Double.toString(result);
+						inputList[i-1]="";
+						inputList[i]="";
+						inputList[i+1]=Double.toString(result);
 						}
 				}
-				if (temp[i].equalsIgnoreCase(("/"))) 
+				if (inputList[i].equalsIgnoreCase(("/"))) 
 				{
 					
 					if (mem==0.0) 
 						{
 						result = divide(d1, d2); mem=result;
-						temp[i-1]="";
-						temp[i]="";
-						temp[i+1]=Double.toString(result);
+						inputList[i-1]="";
+						inputList[i]="";
+						inputList[i+1]=Double.toString(result);
 						}
 					else 
 					{
 						result = divide(mem, d2); mem=result;
-						temp[i-1]="";
-						temp[i]="";
-						temp[i+1]=Double.toString(result);
+						inputList[i-1]="";
+						inputList[i]="";
+						inputList[i+1]=Double.toString(result);
 					}
 				}
 				
-				if (temp[i].equalsIgnoreCase(("%"))) 
+				if (inputList[i].equalsIgnoreCase(("%"))) 
 				{
 					
 					if (mem==0.0) 
@@ -220,9 +202,9 @@ public class Calculator {
 						int _d1 = (int)d1;
 						int _d2 = (int)d2;
 						int res = modulus(_d1, _d2);
-						temp[i]="";
-						temp[i-1]="";
-						temp[i+1]=Integer.toString(res);
+						inputList[i]="";
+						inputList[i-1]="";
+						inputList[i+1]=Integer.toString(res);
 						
 						
 						}
@@ -232,9 +214,9 @@ public class Calculator {
 						int _d2 = (int)d2;
 						int _mem= (int) mem;
 						int res = modulus(_mem, _d2);
-						temp[i]="";
-						temp[i-1]="";
-						temp[i+1]=Integer.toString(res);
+						inputList[i]="";
+						inputList[i-1]="";
+						inputList[i+1]=Integer.toString(res);
 					}
 				}
 				
@@ -249,36 +231,25 @@ public class Calculator {
 			
 		}
 		
-		StringBuffer sBuffer = new StringBuffer();
-	    
-	    
-		for (int i=0; i<temp.length; i++)
-		{
-						
-			sBuffer.append(temp[i]);
-		
-		}
-		String updatedExpression = sBuffer.toString();
-		String _temp[] = updatedExpression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
-		temp = _temp;
+		inputList = updateList(inputList);
 		
 		
 		
 		
 		
-		for (int i=0; i<temp.length; i++)
+		for (int i=0; i<inputList.length; i++)
 		{ 
-			if(temp[0].equalsIgnoreCase("+")) {temp[0]=""; continue;}
-			if(temp[temp.length-1].equalsIgnoreCase("+")) {temp[temp.length-1]="";}
+			if(inputList[0].equalsIgnoreCase("+")) {inputList[0]=""; continue;}
+			if(inputList[inputList.length-1].equalsIgnoreCase("+")) {inputList[inputList.length-1]="";}
 		
-		if (temp[i].equalsIgnoreCase(("+"))|| temp[i].equalsIgnoreCase(("-")))
+		if (inputList[i].equalsIgnoreCase(("+"))|| inputList[i].equalsIgnoreCase(("-")))
 		{
 			double d1 = 0;
 			if (i==0) {continue;}
-			else {d1 = Double.parseDouble(temp[i-1]);}
-			double d2 = Double.parseDouble(temp[i+1]);
+			else {d1 = Double.parseDouble(inputList[i-1]);}
+			double d2 = Double.parseDouble(inputList[i+1]);
 			
-			if (temp[i].equalsIgnoreCase(("+"))) 
+			if (inputList[i].equalsIgnoreCase(("+"))) 
 			{
 				if (mem_2==0.0 && memoryInUse==false) {
 					result = add(d1, d2); mem_2=result; memoryInUse=true;
@@ -289,9 +260,9 @@ public class Calculator {
 					}
 			}
 		
-			if (temp[i].equalsIgnoreCase(("-"))) 
+			if (inputList[i].equalsIgnoreCase(("-"))) 
 			{
-				if ((temp[0].equalsIgnoreCase("-")))
+				if ((inputList[0].equalsIgnoreCase("-")))
 					{
 					
 					
@@ -320,20 +291,20 @@ public class Calculator {
 	
 	}
 	
-	public String[] refreshList(String[] temp) {
+	public String[] updateList(String[] listToUpdate) {
 		StringBuffer sBuffer = new StringBuffer();
 	    
 	    
-		for (int i=0; i<temp.length; i++)
+		for (int i=0; i<listToUpdate.length; i++)
 		{
 						
-			sBuffer.append(temp[i]);
+			sBuffer.append(listToUpdate[i]);
 		
 		}
 		String updatedExpression = sBuffer.toString();
-		String _temp[] = updatedExpression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
-		temp = _temp;
-		return temp;
+		String _temp[] = updatedExpression.split("(?<=[\\(\\)\\+\\-*%\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%\\/\\^A-Za-z])");
+		listToUpdate = _temp;
+		return listToUpdate;
 	}
 	
 	
@@ -388,10 +359,4 @@ public class Calculator {
 		return Math.log(d1);
 	}
 	
-	//Math.log(60984.1)=11.018368453441132
-	//Math.log(-497.99)=NaN
-		
-
-	
-
 }

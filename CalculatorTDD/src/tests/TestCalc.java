@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import calculator.Calculator;
+
 
 public class TestCalc {
 	
@@ -365,7 +365,7 @@ public class TestCalc {
 	{
 	   
 		//Arrange
-		Calculator calc = new Calculator();
+		Calculator calc = new Calculator();;
 		// Acts
 		double actual = calc.exponent(10, 2);
 		
