@@ -100,7 +100,7 @@ public class Calculator {
 			for (int i=0; i<temp.length; i++)
 			{ 
 			
-				if (temp[i].equalsIgnoreCase(("%"))) 
+				/*if (temp[i].equalsIgnoreCase(("%"))) 
 				{ 
 					int d1 = Integer.parseInt(temp[i-1]);
 					int d2 = Integer.parseInt(temp[i+1]);
@@ -109,7 +109,7 @@ public class Calculator {
 					temp[i]=Double.toString(result);
 					mem=0.0;
 					
-				}
+				}*/
 			
 				
 				if (temp[i].equalsIgnoreCase(("√"))) 
@@ -151,7 +151,7 @@ public class Calculator {
 			
 			}
 			String _updatedExpression = sBuf.toString();
-			String _temporary[] = _updatedExpression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
+			String _temporary[] = _updatedExpression.split("(?<=[\\(\\)\\+\\-*%\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%\\/\\^A-Za-z])");
 			temp = _temporary;
 			
 		for (int i=0; i<temp.length; i++)
@@ -165,11 +165,13 @@ public class Calculator {
 			
 			
 			
-			if (temp[i].equalsIgnoreCase(("*"))|| temp[i].equalsIgnoreCase(("/")))
+			if (temp[i].equalsIgnoreCase(("*"))|| temp[i].equalsIgnoreCase(("/"))|| temp[i].equalsIgnoreCase(("%")))
 			{
 				
 				double d1 = Double.parseDouble(temp[i-1]);
+				//int _d1 = Integer.parseInt(temp[i-1]);
 				double d2 = Double.parseDouble(temp[i+1]);
+				//int _d2 = Integer.parseInt(temp[i+1]);
 				if (temp[i].equalsIgnoreCase(("*"))) 
 				{
 					if (mem==0.0) 
@@ -208,12 +210,39 @@ public class Calculator {
 					}
 				}
 				
+				if (temp[i].equalsIgnoreCase(("%"))) 
+				{
+					
+					if (mem==0.0) 
+						{
+						System.out.println("Hej");
+						int _d1 = (int)d1;
+						int _d2 = (int)d2;
+						int res = modulus(_d1, _d2);
+						temp[i]="";
+						temp[i-1]="";
+						temp[i+1]=Integer.toString(res);
+						
+						
+						}
+					else 
+					{
+						System.out.println("Svejs");
+						int _d2 = (int)d2;
+						int _mem= (int) mem;
+						int res = modulus(_mem, _d2);
+						temp[i]="";
+						temp[i-1]="";
+						temp[i+1]=Integer.toString(res);
+					}
+				}
+				
 			
 			}
 			
 			
 			
-			// temp ska tömmas på tomma index
+			
 			
 			
 			
