@@ -67,8 +67,8 @@ public class Calculator {
 		double result = 0.0;
 		double mem = 0.0;
 		double mem_2 = 0.0;
-		int index = 0;
-		ArrayList<String> upDatedList = new ArrayList<String>();
+		
+		
 	
 		// Ersätter -- med +
 		String twoMinusEqPlus = expression.replace("--", "+");
@@ -103,6 +103,7 @@ public class Calculator {
 					mem=0.0;
 					
 					
+					
 				
 				}
 				
@@ -116,6 +117,7 @@ public class Calculator {
 					inputList[i]="";
 					inputList[i+1]=Double.toString(result);
 					mem=0.0;
+					memoryInUse=false;
 					
 				
 				}
@@ -123,17 +125,6 @@ public class Calculator {
 			
 			}	
 			
-			/*sBuf = new StringBuffer();
-			for (int i=0; i<inputList.length; i++)
-			{
-				
-				
-				sBuf.append(inputList[i]);
-			
-			}
-			String _updatedExpression = sBuf.toString();
-			String _temporary[] = _updatedExpression.split("(?<=[\\(\\)\\+\\-*%\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%\\/\\^A-Za-z])");
-			inputList = _temporary;*/
 			
 			inputList = updateList(inputList);
 			
@@ -144,7 +135,7 @@ public class Calculator {
 			if(inputList[inputList.length-1].equalsIgnoreCase("+")) {inputList[inputList.length-1]="";}
 			
 			if (inputList[i].equalsIgnoreCase(("+"))|| inputList[i].equalsIgnoreCase(("-")))
-			{mem=0.0;}
+			{mem=0.0; memoryInUse=false;}
 			
 			
 			
@@ -157,12 +148,13 @@ public class Calculator {
 				//int _d2 = Integer.parseInt(temp[i+1]);
 				if (inputList[i].equalsIgnoreCase(("*"))) 
 				{
-					if (mem==0.0) 
+					if (memoryInUse==false) 
 						{
 						result = multiply(d1, d2); mem=result;
 						inputList[i-1]="";
 						inputList[i]="";
 						inputList[i+1]=Double.toString(result);
+						memoryInUse=true;
 						
 						
 						}
@@ -177,12 +169,13 @@ public class Calculator {
 				if (inputList[i].equalsIgnoreCase(("/"))) 
 				{
 					
-					if (mem==0.0) 
+					if (memoryInUse==false) 
 						{
 						result = divide(d1, d2); mem=result;
 						inputList[i-1]="";
 						inputList[i]="";
 						inputList[i+1]=Double.toString(result);
+						memoryInUse=true;
 						}
 					else 
 					{
@@ -196,7 +189,7 @@ public class Calculator {
 				if (inputList[i].equalsIgnoreCase(("%"))) 
 				{
 					
-					if (mem==0.0) 
+					if (memoryInUse==false) 
 						{
 						System.out.println("Hej");
 						int _d1 = (int)d1;
@@ -205,6 +198,7 @@ public class Calculator {
 						inputList[i]="";
 						inputList[i-1]="";
 						inputList[i+1]=Integer.toString(res);
+						memoryInUse=true;
 						
 						
 						}
@@ -231,11 +225,10 @@ public class Calculator {
 			
 		}
 		
+		// Här tömms minnet och listan uppdateras
+		memoryInUse=false;
 		inputList = updateList(inputList);
-		
-		
-		
-		
+	
 		
 		for (int i=0; i<inputList.length; i++)
 		{ 
@@ -251,13 +244,15 @@ public class Calculator {
 			
 			if (inputList[i].equalsIgnoreCase(("+"))) 
 			{
-				if (mem_2==0.0 && memoryInUse==false) {
+				if (memoryInUse==false) {
 					result = add(d1, d2); mem_2=result; memoryInUse=true;
 					}
 				else  
 					{
 					result = add(mem_2, d2); mem_2=result;
 					}
+				
+				
 			}
 		
 			if (inputList[i].equalsIgnoreCase(("-"))) 
@@ -267,7 +262,7 @@ public class Calculator {
 					
 					
 					}
-				if (mem_2==0.0 && memoryInUse==false) 
+				if (memoryInUse==false) 
 					{
 					result = subtract(d1, d2); mem_2=result; memoryInUse=true;
 					}
@@ -275,7 +270,9 @@ public class Calculator {
 				{
 					result = subtract(mem_2, d2); mem_2=result;
 				}
+				
 			}
+			
 			
 		
 		}
