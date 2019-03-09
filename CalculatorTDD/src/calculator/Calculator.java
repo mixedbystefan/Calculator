@@ -19,6 +19,7 @@ public class Calculator {
 	StringBuffer sBuf;
 	Calculator check;
 	boolean memoryInUse=false;
+	String regex = "(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])";
 	
 	
 	// main metod med konsol-gränssnitt
@@ -101,17 +102,7 @@ public class Calculator {
 			for (int i=0; i<temp.length; i++)
 			{ 
 			
-				/*if (temp[i].equalsIgnoreCase(("%"))) 
-				{ 
-					int d1 = Integer.parseInt(temp[i-1]);
-					int d2 = Integer.parseInt(temp[i+1]);
-					result = modulus(d1, d2);
-					temp[i-1]="";
-					temp[i]=Double.toString(result);
-					mem=0.0;
-					
-				}*/
-			
+				
 				
 				if (temp[i].equalsIgnoreCase(("√"))) 
 				{ 
@@ -142,18 +133,7 @@ public class Calculator {
 			
 			}	
 			
-			sBuf = new StringBuffer();
-			for (int i=0; i<temp.length; i++)
-			{
-				if (!temp[i].equalsIgnoreCase("")) 
-				{upDatedList.add(temp[i]);} 
-				
-				sBuf.append(temp[i]);
-			
-			}
-			String _updatedExpression = sBuf.toString();
-			String _temporary[] = _updatedExpression.split("(?<=[\\(\\)\\+\\-*%\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%\\/\\^A-Za-z])");
-			temp = _temporary;
+			temp = refreshList(temp);
 			
 		for (int i=0; i<temp.length; i++)
 		{ 	
@@ -249,18 +229,7 @@ public class Calculator {
 			
 		}
 		
-		StringBuffer sBuffer = new StringBuffer();
-	    
-	    
-		for (int i=0; i<temp.length; i++)
-		{
-						
-			sBuffer.append(temp[i]);
-		
-		}
-		String updatedExpression = sBuffer.toString();
-		String _temp[] = updatedExpression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
-		temp = _temp;
+		temp = refreshList(temp);
 		
 		
 		
@@ -331,7 +300,7 @@ public class Calculator {
 		
 		}
 		String updatedExpression = sBuffer.toString();
-		String _temp[] = updatedExpression.split("(?<=[\\(\\)\\+\\-*\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*\\/\\^A-Za-z])");
+		String _temp[] = updatedExpression.split(regex);
 		temp = _temp;
 		return temp;
 	}
