@@ -12,6 +12,7 @@ public class Calculator {
 	Calculator check;
 	boolean memoryInUse=false;
 	String regex = "(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])";
+	String updatedExpression="";
 	
 	
 	// main metod med konsol-gränssnitt
@@ -142,9 +143,8 @@ public class Calculator {
 			{
 				
 				double d1 = Double.parseDouble(temp[i-1]);
-				//int _d1 = Integer.parseInt(temp[i-1]);
 				double d2 = Double.parseDouble(temp[i+1]);
-				//int _d2 = Integer.parseInt(temp[i+1]);
+				
 				if (temp[i].equalsIgnoreCase(("*"))) 
 				{
 					if (mem==0.0) 
@@ -291,7 +291,7 @@ public class Calculator {
 			sBuffer.append(temp[i]);
 		
 		}
-		String updatedExpression = sBuffer.toString();
+		updatedExpression = sBuffer.toString();
 		String _temp[] = updatedExpression.split(regex);
 		temp = _temp;
 		return temp;
