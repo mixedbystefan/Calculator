@@ -1,18 +1,10 @@
 package calculator;
 
-import java.awt.List;
-import java.awt.datatransfer.StringSelection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.concurrent.CountDownLatch;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.naming.spi.DirStateFactory.Result;
-import javax.print.attribute.ResolutionSyntax;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.xml.transform.Templates;
+import java.util.ArrayList;
+
+import java.util.Scanner;
+
 
 public class Calculator {
 	StringBuffer sBuffer;
@@ -37,11 +29,11 @@ public class Calculator {
 	
 	
 	
-	public String checkParanteses(String s){             //metod som hanterar paranteser separat
+	public String checkParanteses(String s){            
         check = new Calculator();
         while(s.contains(Character.toString('('))||s.contains(Character.toString(')'))){
             for(int o=0; o<s.length();o++){
-                try{                                                        //i there is not sign
+                try{                                                       
                     if((s.charAt(o)==')' || Character.isDigit(s.charAt(o))) //between separate brackets
                             && s.charAt(o+1)=='('){                         //or number and bracket,
                         s=s.substring(0,o+1)+"*"+(s.substring(o+1));        //behandlas som multiplikation
